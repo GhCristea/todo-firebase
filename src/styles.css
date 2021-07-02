@@ -1,0 +1,138 @@
+body {
+  margin: 10px;
+  height: 90vh;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  height: 70vh;
+}
+
+.content {
+  grid-area: content;
+  height: 70vh;
+}
+
+.header {
+  grid-area: header;
+  height: 5vh;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.header > ul {
+  display: flex;
+  margin-left: 10%;
+  align-items: center;
+  height: 100%;
+}
+
+.header > ul > li {
+  margin: 0 20px 0 20px;
+}
+
+.header > ul > li :hover {
+  background-color: white;
+}
+
+.footer {
+  height: 15vh;
+  grid-area: footer;
+}
+
+.wrapper {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas:
+    "header  header  header"
+    "content content sidebar"
+    "footer  footer  footer";
+  background-color: #fff;
+  color: rgb(1, 1, 8);
+  font-size: 120%;
+}
+
+.box {
+  padding: 10px;
+  border: 2px dashed #eee;
+}
+
+.header,
+.footer {
+  background-color: #eee;
+}
+
+@media only screen and (max-width: 640px) {
+  .wrapper {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "sidebar"
+      "content"
+      "footer";
+  }
+  .sidebar {
+    height: 20vh;
+  }
+}
+
+.action-button {
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  font-size: 100%;
+  max-width: 10rem;
+}
+
+.auth-page {
+  display: grid;
+  place-items: center;
+}
+
+.auth-form {
+  display: flex;
+  margin-top: 5rem;
+  flex-direction: column;
+  height: 50vh;
+  width: 50vh;
+}
+
+.auth-form > input[type="text"],
+input[type="password"] {
+  height: 2rem;
+  margin-bottom: 40px;
+}
+
+.create-todo-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.create-todo-form > :is(textarea, input) {
+  min-height: 2rem;
+  margin-bottom: 4rem;
+}
+
+.create-todo-form > input[type="submit"] {
+  align-self: flex-end;
+}
+
+create-todo-form textarea {
+  min-height: 10rem;
+}
