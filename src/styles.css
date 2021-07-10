@@ -1,3 +1,9 @@
+:root {
+  --color-main: rgb(1, 1, 8);
+  --color-component: hsl(0, 0%, 93%);
+  color: var(--color-main);
+}
+
 body {
   margin: 10px;
   height: 90vh;
@@ -13,6 +19,7 @@ li {
 }
 
 a {
+  display: inline-block;
   text-decoration: none;
   color: inherit;
 }
@@ -43,11 +50,16 @@ a {
 }
 
 .header > ul > li {
-  margin: 0 20px 0 20px;
+  line-height: 2em;
 }
 
 .header > ul > li :hover {
   background-color: white;
+  transition: ease-in-out 0.15s all;
+}
+
+.header > ul > li > a {
+  margin: 0 1em;
 }
 
 .footer {
@@ -64,40 +76,36 @@ a {
     "content content sidebar"
     "footer  footer  footer";
   background-color: #fff;
-  color: rgb(1, 1, 8);
+  color: var(--color-main);
   font-size: 120%;
 }
 
 .box {
   padding: 10px;
-  border: 2px dashed #eee;
+  border: 2px dashed var(--color-component);
+}
+.header {
+  background-color: var(--color-component);
 }
 
-.header,
 .footer {
-  background-color: #eee;
+  background-color: hsla(0, 0%, 93%, 0.5);
 }
-
-@media only screen and (max-width: 640px) {
-  .wrapper {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "header"
-      "sidebar"
-      "content"
-      "footer";
-  }
-  .sidebar {
-    height: 20vh;
-  }
-}
-
 .action-button {
   padding: 10px;
   border: 1px solid black;
   border-radius: 5px;
   font-size: 100%;
   max-width: 10rem;
+}
+
+.action-button:hover {
+  box-shadow: 3px 3px #ddd;
+}
+
+.action-button:active {
+  transition: all 0.7s;
+  background-color: white;
 }
 
 .auth-page {
@@ -129,10 +137,20 @@ input[type="password"] {
   margin-bottom: 4rem;
 }
 
-.create-todo-form > input[type="submit"] {
-  align-self: flex-end;
-}
-
 create-todo-form textarea {
   min-height: 10rem;
+}
+
+@media only screen and (max-width: 640px) {
+  .wrapper {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "sidebar"
+      "content"
+      "footer";
+  }
+  .sidebar {
+    height: 20vh;
+  }
 }

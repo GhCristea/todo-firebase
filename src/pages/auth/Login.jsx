@@ -1,17 +1,16 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { Link } from "@reach/router";
-import { GLOBALLY_SIGNED_USERS } from "./SignUp";
+import { useAuth } from "../../firebase/auth";
 
-export default function Login({ onLogin }) {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { signin } = useAuth();
 
   function handleLogin(ev) {
     ev.preventDefault();
-    const user = GLOBALLY_SIGNED_USERS.find(
-      (user) => user.email === email && user.password === password
-    );
-    if (user) onLogin(user);
+    signin(email, password);
   }
 
   return (
@@ -31,7 +30,7 @@ export default function Login({ onLogin }) {
           name="password"
           onChange={({ target }) => setPassword(target.value)}
         />
-        <input className="action-button" type="submit" value="Login" />
+        <input type="submit" className="action-button" value="Login" />
       </form>
       <div>
         Don't have an accout?

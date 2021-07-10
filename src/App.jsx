@@ -1,37 +1,25 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { Router, Link } from "@reach/router";
+import { Router } from "@reach/router";
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/SignUp";
 import Header from "./Header";
+import { useAuth } from "./firebase/auth";
+import { getUserDocument, updateUserNotes } from "./firebase/firestore";
 
-let GLOBAL_USER = {
-  displayName: "No Display Name",
-  email: "",
-  password: "",
-};
-
-const GLOBAL_NOTES = [];
+const GLOBAL_NOTES = [{ title: "Welcome", content: "Hello world!" }];
 
 function App() {
-  function handleLogout() {
-    GLOBAL_USER.email = "";
-    GLOBAL_USER.password = "";
-  }
-
-  function handleLogin(user) {
-    GLOBAL_USER.email = user;
-  }
   return (
     <div>
-      <Header handleLogout={handleLogout} />
+      <Header />
       <Router>
         <Main path="/" />
         <Auth path="auth" />
         <Signup path="signup" />
-        <Login path="login" onLogin={handleLogin} />
-        <Profile path="activity" />
+        <Login path="login" />
       </Router>
+      <footer className="box footer">Footer</footer>
     </div>
   );
 }
@@ -40,20 +28,28 @@ function Main() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [notes, setNotes] = useState([]);
+  const { user } = useAuth();
 
   function handleCreate(ev) {
     ev.preventDefault();
-    GLOBAL_NOTES.push({ title, content });
-    console.log("notes changed: ", GLOBAL_NOTES);
     if (!notes.length) setNotes([{ title, content }]);
-    else setNotes([...notes, { title, content }]);
+    else setNotes([{ title, content }, ...notes]);
   }
+
+  useEffect(() => {
+    user.uid
+      ? getUserDocument(user.uid).then((user) => {
+          setNotes(user.notes);
+        })
+      : setNotes([]);
+  }, [user]);
+
+  useEffect(() => {
+    updateUserNotes(user, notes);
+  }, [notes]);
 
   return (
     <div className="wrapper">
-      <div className="box sidebar">
-        <UserNotes notes={notes} />
-      </div>
       <div className="box content">
         <form className="create-todo-form" onSubmit={handleCreate}>
           <label htmlFor="title">Title:</label>
@@ -75,37 +71,68 @@ function Main() {
           <input className="action-button" type="submit" value="Create Note" />
         </form>
       </div>
-      <div className="box footer">Footer</div>
+      <div className="box sidebar">
+        <UserNotes notes={notes} />
+      </div>
     </div>
   );
 }
 
 function Auth() {
-  const [user, setUser] = useState(GLOBAL_USER);
-  useEffect(() => {
-    console.log("user has changed", user);
-  }, [user]);
-
-  return user.email ? <Profile user={user} /> : <Login onLogin={setUser} />;
+  const { user } = useAuth();
+  return user?.email ? <Profile user={user} /> : <Login />;
 }
 
 function Profile({ user }) {
-  return <pre>{JSON.stringify(user, null, 2)}</pre>;
+  return <pre>{user && JSON.stringify(user, null, 2)}</pre>;
 }
 
 function UserNotes({ notes }) {
-  return notes.length ? (
-    <ul>
-      {notes.map((note) => (
-        <li key={note.title}>
-          <h5>{note.title}</h5>
-          <p>{note.content}</p>
-        </li>
-      ))}
-    </ul>
-  ) : (
-    <div>Nothing to do</div>
+  if (notes?.length) return <ul>{notes.map(CreateNote)}</ul>;
+  else return <div>Nothing to do</div>;
+}
+
+function CreateNote(note) {
+  return (
+    <li key={note.title}>
+      <h5>{note.title}</h5>
+      <p>{note.content}</p>
+    </li>
   );
 }
+
+// export async function createUserProfileDocument(user, additionalData) {
+//   if (!user) return null; //auth.signOut() gives user=null
+//   const userRef = firestore.doc(`users/${user.uid}`);
+//   const snapshot = await userRef.get();
+
+//   //if no profile exists for this user, create one
+//   if (!snapshot.exists) {
+//     const createdAt = new Date().toDateString();
+//     const { displayName, email, photoURL } = user;
+//     try {
+//       await userRef.set({
+//         displayName,
+//         email,
+//         photoURL,
+//         createdAt,
+//         ...additionalData,
+//       });
+//     } catch (e) {
+//       console.error("Error creating user", e.message);
+//     }
+//   }
+//   return getUserDocument(user.uid);
+// }
+
+// export async function getUserDocument(uid) {
+//   if (!uid) return null;
+//   try {
+//     const documentData = firestore.doc(`users/${uid}`).get();
+//     return { uid, ...documentData };
+//   } catch (e) {
+//     console.error("Error get user document", e.message);
+//   }
+// }
 
 export default App;

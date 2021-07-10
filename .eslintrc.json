@@ -2,6 +2,7 @@
   "rules": {},
   "env": {
     "es6": true,
+    "esm": true,
     "browser": true
   },
   "parserOptions": {

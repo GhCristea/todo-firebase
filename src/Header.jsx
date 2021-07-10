@@ -1,32 +1,39 @@
+/* eslint-disable no-unused-vars */
 import { Link } from "@reach/router";
 import React from "react";
+import { useAuth } from "./firebase/auth";
 
-export default function Header({ handleLogout }) {
+export default function Header() {
+  const { signout } = useAuth();
+
   return (
-    <div className="box header">
-      <ul>
-        <li>
-          <a href="#">New Note</a>
-        </li>
-        <li>
-          <a href="#">Done</a>
-        </li>
-      </ul>
-      <ul>
-        <li>
-          <Link to="/activity">My Activity</Link>
-        </li>
-        <li>
-          <Link to="/auth" className="action-button">
-            Login
+    <header>
+      <nav className="box header">
+        <ul>
+          <li>
+            <Link to="/">New Note</Link>
+          </li>
+          <li>
+            <Link to="/done-notes">Done</Link>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <Link to="/auth">My Activity</Link>
+          </li>
+          <li></li>
+          <Link to="/auth">
+            <button className="action-button">Login</button>
           </Link>
-        </li>
-        <li>
-          <button onClick={handleLogout} className="action-button">
-            Logout
-          </button>
-        </li>
-      </ul>
-    </div>
+          <li>
+            <Link to="/">
+              <button className="action-button" onClick={signout}>
+                Logout
+              </button>
+            </Link>
+          </li>
+        </ul>
+      </nav>
+    </header>
   );
 }

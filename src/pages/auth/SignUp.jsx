@@ -1,16 +1,16 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { Link } from "@reach/router";
-
-export const GLOBALLY_SIGNED_USERS = [];
+import { useAuth } from "../../firebase/auth";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { signup } = useAuth();
 
   function handleSignup(ev) {
     ev.preventDefault();
-    const user = { displayName: "New User", email, password };
-    GLOBALLY_SIGNED_USERS.push(user);
+    signup(email, password);
   }
 
   return (
