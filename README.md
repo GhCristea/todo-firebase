@@ -7,13 +7,13 @@ Empty project.
 First install dependencies:
 
 ```sh
-npm install
+yarn install
 ```
 
 To run in dev mode mode:
 
 ```sh
-npm start
+yarn start
 ```
 
 Then go to http://localhost:8080
@@ -21,7 +21,7 @@ Then go to http://localhost:8080
 To create a production build:
 
 ```sh
-npm run build
+yarn run build
 ```
 
 ## Credits
