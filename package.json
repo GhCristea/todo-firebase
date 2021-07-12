@@ -7,10 +7,10 @@
   "author": "",
   "license": "ISC",
   "scripts": {
+    "start": "npx snowpack dev",
+    "build": "yarn run clean & yarn run create-build",
     "clean": "rm -rf build",
-    "start": "snowpack dev",
-    "create-build": "snowpack build",
-    "build": "yarn run clean & yarn run create-build"
+    "create-build": "npx snowpack build"
   },
   "dependencies": {
     "@reach/router": "^1.3.4",
