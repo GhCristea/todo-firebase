@@ -1,7 +1,10 @@
 :root {
-  --color-main: rgb(1, 1, 8);
-  --color-component: hsl(0, 0%, 93%);
-  color: var(--color-main);
+  --color-primary: rgb(18, 18, 18);
+  --color-component: rgb(250, 250, 250);
+  --color-bg: rgb(255, 255, 255);
+  --color-shadow: rgb(237, 237, 237);
+  color: var(--color-primary);
+  background-color: var(--color-bg);
 }
 
 body {
@@ -54,7 +57,7 @@ a {
 }
 
 .header > ul > li :hover {
-  background-color: white;
+  background-color: var(--color-bg);
   transition: ease-in-out 0.15s all;
 }
 
@@ -76,7 +79,7 @@ a {
     "content content sidebar"
     "footer  footer  footer";
   background-color: #fff;
-  color: var(--color-main);
+  color: var(--color-primary);
   font-size: 120%;
 }
 
