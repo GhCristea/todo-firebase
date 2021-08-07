@@ -4,8 +4,8 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 const config = {
   mode: "development",
-  contentBase: path.resolve(__dirname, "dist"),
-  entry: "./src/index.jsx",
+  // contentBase: path.resolve(__dirname, "dist"),
+  // entry: "./src/index.jsx",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "index.js",
