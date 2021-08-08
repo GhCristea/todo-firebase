@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { Router } from "@reach/router";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/SignUp";
+import ResetPassword from "./pages/auth/ResetPassword";
 import Header from "./Header";
 import { useAuth } from "./firebase/auth";
 import { getUserDocument, updateUserNotes } from "./firebase/firestore";
@@ -11,16 +12,27 @@ const GLOBAL_NOTES = [{ title: "Welcome", content: "Hello world!" }];
 
 function App() {
   return (
-    <div>
+    <Router>
       <Header />
-      <Router>
-        <Main path="/" />
-        <Auth path="auth" />
-        <Signup path="signup" />
-        <Login path="login" />
-      </Router>
+      <Switch>
+        <Route path="/" exact>
+          <Main />
+        </Route>
+        <Route path="/auth">
+          <Auth />
+        </Route>
+        <Route path="/signup">
+          <Signup />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/reset-password">
+          <ResetPassword />
+        </Route>
+      </Switch>
       <footer className="box footer">Footer</footer>
-    </div>
+    </Router>
   );
 }
 

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { Link } from "@reach/router";
+import { Link } from "react-router-dom";
 import { useAuth } from "../../firebase/auth";
 
 export default function Signup() {

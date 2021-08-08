@@ -97,6 +97,10 @@ async function _signin(email, password) {
   return user;
 }
 
+export async function _sendPasswordResetEmail(email) {
+  auth.sendPasswordResetEmail(email);
+}
+
 /***********FIREBASE user types */
 /*  type UserCredential = {
     additionalUserInfo?: firebase.auth.AdditionalUserInfo | null; 

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { Link } from "@reach/router";
+import { Link } from "react-router-dom";
 import { useAuth } from "../../firebase/auth";
 
 export default function Login() {
@@ -33,8 +33,14 @@ export default function Login() {
         <input type="submit" className="action-button" value="Login" />
       </form>
       <div>
-        Don't have an accout?
-        <Link to="/signup">Signup</Link>
+        <em>
+          Don't have an accout?
+          <Link to="auth/signup">Signup</Link>
+        </em>
+        <em>
+          Forgot Password?
+          <Link to="auth/reset-password">Reset Password</Link>
+        </em>
       </div>
     </div>
   );
