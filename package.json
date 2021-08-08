@@ -9,7 +9,7 @@
   "scripts": {
     "clean": "rm dist/main.js",
     "dev": "webpack serve",
-    "start": "webpack --mode development && node server.js",
+    "start": "node server.js",
     "build": "webpack --mode production"
   },
   "dependencies": {
